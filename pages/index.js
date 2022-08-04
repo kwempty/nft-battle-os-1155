@@ -2,6 +2,7 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 import { Account, Connect } from "../components";
 import { useMounted } from "../hooks";
+import { Erc1155Balance } from "../components/erc1155Balance";
 
 export default function Home() {
   const isMounted = useMounted();
@@ -19,6 +20,7 @@ export default function Home() {
           {isMounted && isConnected && (
             <>
               <Account />
+              <Erc1155Balance />
             </>
           )}
         </Box>
