@@ -5,10 +5,13 @@ import {
   createClient,
   configureChains,
 } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
-const { chains, provider } = configureChains(defaultChains, [publicProvider()]);
+const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
+const { chains, provider } = configureChains(defaultChains, [
+  alchemyProvider({ alchemyId }),
+]);
 const client = createClient({
   autoConnect: true,
   connectors: [new InjectedConnector({ chains })],
