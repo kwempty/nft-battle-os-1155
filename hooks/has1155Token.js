@@ -1,21 +1,21 @@
 import { useContractRead } from 'wagmi'
 import erc1155Contract from '../utils/abis/erc1155Contract.json'
 
-export const useHas1155Token = (contract, owner, tokenId) => {
+export const useHas1155Token = (contract, owners, tokenIds) => {
   const {
-    data: balanceOf,
+    data: balanceOfBatch,
     isError,
     error
   } = useContractRead({
     addressOrName: contract,
     contractInterface: erc1155Contract,
-    functionName: "balanceOf",
-    args: [owner, tokenId],
-  });
+    functionName: 'balanceOfBatch',
+    args: [owners, tokenIds]
+  })
 
   return {
-    balanceOf,
-    hasNft: balanceOf?.gt(0),
+    balanceOfBatch,
+    balances: balanceOfBatch,
     isError,
     error
   }
