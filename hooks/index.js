@@ -1,1 +1,1 @@
-export { useMounted } from "./useMounted";
+export { useMounted } from './useMounted'

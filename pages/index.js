@@ -1,11 +1,12 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
-import { useAccount } from "wagmi";
-import { Account, Connect } from "../components";
-import { useMounted } from "../hooks";
+import { Box, Container, Heading } from '@chakra-ui/react'
+import { useAccount } from 'wagmi'
+import { Account, Connect } from '../components'
+import { useMounted } from '../hooks'
+import { Erc1155Balance } from '../components/erc1155Balance'
 
 export default function Home() {
-  const isMounted = useMounted();
-  const { isConnected } = useAccount();
+  const isMounted = useMounted()
+  const { isConnected } = useAccount()
 
   return (
     <Box>
@@ -13,16 +14,17 @@ export default function Home() {
         <Heading as="h1" size="4xl">
           NFT Battle
         </Heading>
-        <Box>
+        <Box mt="2em">
           {isMounted && <Connect />}
 
           {isMounted && isConnected && (
             <>
-              <Account />
+              {/* <Account /> */}
+              <Erc1155Balance />
             </>
           )}
         </Box>
       </Container>
     </Box>
-  );
+  )
 }
