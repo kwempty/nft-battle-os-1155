@@ -12,7 +12,7 @@ export const Erc1155Balance = () => {
     chainId: chain?.id
   })
   const tokenId =
-    '66944570731711987735845020825364593806926065595037873500763412721553566072833'
+    '66944570731711987735845020825364593806926065595037873500763412727051124211713'
   const { hasNft, isError, error } = useHas1155Token(erc1155Contract, address, tokenId)
 
   if (!isConnected) return <></>
