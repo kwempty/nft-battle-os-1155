@@ -1,12 +1,12 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
-import { useAccount } from "wagmi";
-import { Account, Connect } from "../components";
-import { useMounted } from "../hooks";
-import { Erc1155Balance } from "../components/erc1155Balance";
+import { Box, Container, Heading } from '@chakra-ui/react'
+import { useAccount } from 'wagmi'
+import { Account, Connect } from '../components'
+import { useMounted } from '../hooks'
+import { Erc1155Balance } from '../components/erc1155Balance'
 
 export default function Home() {
-  const isMounted = useMounted();
-  const { isConnected } = useAccount();
+  const isMounted = useMounted()
+  const { isConnected } = useAccount()
 
   return (
     <Box>
@@ -26,5 +26,5 @@ export default function Home() {
         </Box>
       </Container>
     </Box>
-  );
+  )
 }

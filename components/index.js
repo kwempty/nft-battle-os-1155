@@ -1,2 +1,2 @@
-export { Account } from "./Account";
-export { Connect } from "./Connect";
+export { Account } from './Account'
+export { Connect } from './Connect'

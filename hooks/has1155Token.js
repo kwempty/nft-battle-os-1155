@@ -1,11 +1,11 @@
-import { useContractRead } from "wagmi";
-import erc1155Contract from "../utils/abis/erc1155Contract.json";
+import { useContractRead } from 'wagmi'
+import erc1155Contract from '../utils/abis/erc1155Contract.json'
 
 export const useHas1155Token = (contract, owner, tokenId) => {
   const {
     data: balanceOf,
     isError,
-    error,
+    error
   } = useContractRead({
     addressOrName: contract,
     contractInterface: erc1155Contract,
@@ -17,6 +17,6 @@ export const useHas1155Token = (contract, owner, tokenId) => {
     balanceOf,
     hasNft: balanceOf?.gt(0),
     isError,
-    error,
-  };
-};
+    error
+  }
+}
