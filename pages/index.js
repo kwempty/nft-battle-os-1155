@@ -14,12 +14,12 @@ export default function Home() {
         <Heading as="h1" size="4xl">
           NFT Battle
         </Heading>
-        <Box>
+        <Box mt="2em">
           {isMounted && <Connect />}
 
           {isMounted && isConnected && (
             <>
-              <Account />
+              {/* <Account /> */}
               <Erc1155Balance />
             </>
           )}

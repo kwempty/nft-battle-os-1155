@@ -13,20 +13,18 @@ export function Connect() {
   return (
     <Box>
       <Box>
-        {isConnected && (
-          <Button onClick={() => disconnect()}>
-            Disconnect from {connector?.name}
-          </Button>
+        {isConnected ? (
+          <Button onClick={() => disconnect()}>Disconnect Wallet</Button>
+        ) : (
+          connectors
+            .filter((x) => isMounted && x.ready && x.id !== connector?.id)
+            .map((x) => (
+              <Button key={x.id} onClick={() => connect({ connector: x })}>
+                Connect {x.name}
+                {isLoading && x.id === pendingConnector?.id && ' (connecting)'}
+              </Button>
+            ))
         )}
-
-        {connectors
-          .filter((x) => isMounted && x.ready && x.id !== connector?.id)
-          .map((x) => (
-            <Button key={x.id} onClick={() => connect({ connector: x })}>
-              {x.name}
-              {isLoading && x.id === pendingConnector?.id && ' (connecting)'}
-            </Button>
-          ))}
       </Box>
 
       {error && <Box>{error.message}</Box>}
