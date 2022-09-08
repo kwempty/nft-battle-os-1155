@@ -10,7 +10,10 @@ export function TokenDisplay({ token }) {
     name: 'erc1155Contract',
     chainId: chain?.id
   })
-  const { processedTokenURI } = useTokenURI(erc1155Contract, token.id || '0')
+  const { processedTokenURI } = useTokenURI(
+    erc1155Contract,
+    token.tokenId || '0'
+  )
   return (
     <>
       <ListItem key={token.tokenId}>
