@@ -1,9 +1,10 @@
-import { getContractAddress } from '../utils/contractAddress'
 import { useNetwork, useAccount } from 'wagmi'
-import { useHas1155Token } from '../hooks/has1155Token'
-import { useState, useEffect } from 'react'
-import { Box, Text, Badge, ListItem, UnorderedList } from '@chakra-ui/react'
-import { CheckIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import { useState, useEffect, useMemo } from 'react'
+import { Box, Text, Badge, UnorderedList } from '@chakra-ui/react'
+import { NotAllowedIcon } from '@chakra-ui/icons'
+import { useHas1155Token } from '../hooks'
+import { getContractAddress } from '../utils/contractAddress'
+import { TokenDisplay } from '../components'
 
 export const Erc1155Balance = () => {
   const [ownedTokens, setOwnedTokens] = useState([0])
@@ -13,12 +14,18 @@ export const Erc1155Balance = () => {
     name: 'erc1155Contract',
     chainId: chain?.id
   })
-  const tokenIds = [
-    '66944570731711987735845020825364593806926065595037873500763412727051124211713',
-    '89863914919801430517959213592055400710389243750546056901808860984226390999047',
-    '28583945730878618704816541677749661839032078384876779106450920615411361775622'
-  ]
-  const tokenNames = ['Village', 'Music', 'kusa']
+  const tokenIds = useMemo(
+    () => [
+      // uri: https://api.opensea.io/api/v2/metadata/matic/0x2953399124F0cBB46d2CbACD8A89cF0599974963/0x + hex(id)
+      // https://api.opensea.io/api/v2/metadata/matic/0x2953399124F0cBB46d2CbACD8A89cF0599974963/0x940148C721C7A0FF2F28668D56E52A8D3DD6832B000000000000080000000001
+      '102942637473818750245512684055117078419849759823500598888050169431684317970433',
+      '66944570731711987735845020825364593806926065595037873500763412727051124211713',
+      '57920695457072532059112617018159441295166854042840448471990454514830664531969'
+    ],
+    []
+  )
+  const tokenNames = useMemo(() => ['Mari', 'Village', 'Skull'], [])
+
   let addresses = [address]
   while (addresses.length < tokenIds.length) addresses.push(address)
   const { balances, isError, error } = useHas1155Token(
@@ -26,7 +33,9 @@ export const Erc1155Balance = () => {
     addresses,
     tokenIds
   )
+
   useEffect(() => {
+    if (balances === undefined) return
     let tokens = []
     balances.map((e) => {
       tokens.push(e.gt(0))
@@ -36,8 +45,7 @@ export const Erc1155Balance = () => {
       if (e === true) tokenList.push({ name: tokenNames[i], id: tokenIds[i] })
     })
     setOwnedTokens(tokenList)
-    console.log(tokenList)
-  }, [balances])
+  }, [balances, tokenIds, tokenNames])
 
   if (!isConnected) return <></>
   if (isError)
@@ -53,14 +61,8 @@ export const Erc1155Balance = () => {
         <>
           <Text>{ownedTokens.length} tokens owned:</Text>
           <UnorderedList>
-            {ownedTokens.map((e, i) => {
-              return (
-                <ListItem key={i}>
-                  <Badge colorScheme="green" mr="0.5em">
-                    <CheckIcon></CheckIcon> {e.name}
-                  </Badge>
-                </ListItem>
-              )
+            {ownedTokens.map((token, i) => {
+              return <TokenDisplay key={i} token={token} />
             })}
           </UnorderedList>
         </>
