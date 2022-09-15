@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNetwork } from 'wagmi'
 import { Badge, Box, Link, Image, Heading, Text } from '@chakra-ui/react'
-import { CheckIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import { CheckIcon, NotAllowedIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { useTokenURI } from '../hooks'
 import {
   getContractAddress,
@@ -20,11 +20,18 @@ export function TokenDisplay({ token }) {
     token.tokenId || '0'
   )
   const [tokenMetadata, setTokenMetadata] = useState({})
+  const [isIpfs, setIsIpfs] = useState()
+  const [traitsPropertyName, setTraitsPropertyName] = useState('traits')
+  const [imageUri, setImageUri] = useState('')
   useEffect(() => {
     if (processedTokenURI.length === 0) return
 
-    // IPFS not supported yet
-    if (processedTokenURI.indexOf('ipfs://') === 0) return
+    const tokenUriIsIpfs =
+      processedTokenURI.indexOf('https://ipfs.io/ipfs') === 0
+    setIsIpfs(tokenUriIsIpfs)
+    if (tokenUriIsIpfs) {
+      setTraitsPropertyName('properties')
+    }
 
     const fetchTokenMetadata = async () => {
       try {
@@ -34,6 +41,9 @@ export function TokenDisplay({ token }) {
         }
         const newData = await response.json()
         setTokenMetadata(newData)
+        if (tokenUriIsIpfs)
+          setImageUri('https://ipfs.io/ipfs/' + newData.image_url.substring(7))
+        else setImageUri(newData.image)
       } catch (error) {
         console.error('error: ', error)
       }
@@ -46,16 +56,16 @@ export function TokenDisplay({ token }) {
       <Box w="176px" h="200px">
         {JSON.stringify(tokenMetadata) !== '{}' ? (
           <>
-            <Image src={tokenMetadata.image} alt={tokenMetadata.name} />
+            <Image src={imageUri} alt={tokenMetadata.name} />
             <Link href={openSeaTokenAddress + token.tokenId}>
               <Heading as="h3" size="sm" mt="1em">
-                {tokenMetadata.name}
+                {tokenMetadata.name} <ExternalLinkIcon></ExternalLinkIcon>
               </Heading>
             </Link>
             <Text mt="1em">Available properties:</Text>
             {detectedTraits.map((traitname) => (
               <>
-                {tokenMetadata.traits.filter(
+                {tokenMetadata[traitsPropertyName].filter(
                   (e) => e.trait_type.toLowerCase() == traitname
                 ).length > 0 ? (
                   <Badge colorScheme="green" mr="4px">
