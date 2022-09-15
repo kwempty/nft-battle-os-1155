@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNetwork } from 'wagmi'
 import { Badge, Box, Link, Image, Heading, Text } from '@chakra-ui/react'
-import { CheckIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import { CheckIcon, NotAllowedIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { useTokenURI } from '../hooks'
 import {
   getContractAddress,
@@ -59,7 +59,7 @@ export function TokenDisplay({ token }) {
             <Image src={imageUri} alt={tokenMetadata.name} />
             <Link href={openSeaTokenAddress + token.tokenId}>
               <Heading as="h3" size="sm" mt="1em">
-                {tokenMetadata.name}
+                {tokenMetadata.name} <ExternalLinkIcon></ExternalLinkIcon>
               </Heading>
             </Link>
             <Text mt="1em">Available properties:</Text>
