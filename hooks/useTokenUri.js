@@ -30,8 +30,9 @@ const processTokenURI = (tokenURI, tokenId) => {
   // Return empty string if we got 0 as a tokenURI
   if (tokenId == '0') return ''
 
-  // Do not alter the URI if it is not an OpenSea API one
-  if (tokenURI.indexOf('api.opensea.io/api') == -1) return tokenURI
+  // This is what we do with IPFS tokens (frozen)
+  if (tokenURI.indexOf('api.opensea.io/api') == -1)
+    return 'https://ipfs.io/ipfs/' + tokenURI.substring(7)
 
   // Do not alter the URI if it does not come with '0x{id}' at the end
   const tokenIdIndex = tokenURI.indexOf('0x{id}')
