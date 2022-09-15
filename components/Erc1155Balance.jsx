@@ -1,6 +1,6 @@
 import { useNetwork, useAccount } from 'wagmi'
-import { useState, useEffect, useMemo } from 'react'
-import { Box, Text, Badge, UnorderedList } from '@chakra-ui/react'
+import { useState, useEffect } from 'react'
+import { Box, Text, Badge, Stack, Heading } from '@chakra-ui/react'
 import { NotAllowedIcon } from '@chakra-ui/icons'
 import { getContractAddress } from '../utils/contractAddress'
 import { detectedTokenIds } from '../utils/tokenIds'
@@ -49,12 +49,14 @@ export const Erc1155Balance = () => {
     <Box mt="1em">
       {ownedTokens.length > 0 ? (
         <>
-          <Text>{ownedTokens.length} tokens owned:</Text>
-          <UnorderedList>
+          <Heading as="h2" size="md">
+            {ownedTokens.length} tokens owned:
+          </Heading>
+          <Stack direction={['column', 'row']} mt="1em" spacing="24px">
             {ownedTokens.map((token, i) => {
               return <TokenDisplay key={i} token={token} />
             })}
-          </UnorderedList>
+          </Stack>
         </>
       ) : (
         <Text>
