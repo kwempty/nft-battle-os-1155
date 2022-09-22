@@ -3,7 +3,7 @@ import { useAccount } from 'wagmi'
 import { Connect } from '../components'
 import { useMounted } from '../hooks'
 import { Erc1155Balance } from '../components'
-import { siteTitle } from '../utils/tokenIds'
+import { siteTitle } from '../utils/settings'
 
 export default function Home() {
   const isMounted = useMounted()

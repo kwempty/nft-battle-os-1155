@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Box, Text, Badge, Stack, Heading } from '@chakra-ui/react'
 import { NotAllowedIcon } from '@chakra-ui/icons'
 import { getContractAddress } from '../utils/contractAddress'
-import { detectedTokenIds } from '../utils/tokenIds'
+import { detectedTokenIds } from '../utils/settings'
 import { useHas1155Token } from '../hooks'
 import { TokenDisplay } from '../components'
 
