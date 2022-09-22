@@ -8,7 +8,7 @@ import { useHas1155Token } from '../hooks'
 import { TokenDisplay } from '../components'
 
 export const Erc1155Balance = () => {
-  const [ownedTokens, setOwnedTokens] = useState([0])
+  const [ownedTokens, setOwnedTokens] = useState([])
   const { chain } = useNetwork()
   const { address, isConnected } = useAccount()
   const erc1155Contract = getContractAddress({
@@ -21,7 +21,7 @@ export const Erc1155Balance = () => {
   const { balances, isError, error } = useHas1155Token(
     erc1155Contract,
     addresses,
-    detectedTokenIds.map((e) => e.tokenId)
+    detectedTokenIds
   )
 
   useEffect(() => {
