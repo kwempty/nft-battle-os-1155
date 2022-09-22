@@ -15,10 +15,7 @@ export function TokenDisplay({ token }) {
     name: 'erc1155Contract',
     chainId: chain?.id
   })
-  const { processedTokenURI } = useTokenURI(
-    erc1155Contract,
-    token.tokenId || '0'
-  )
+  const { processedTokenURI } = useTokenURI(erc1155Contract, token || '0')
   const [tokenMetadata, setTokenMetadata] = useState({})
   const [isIpfs, setIsIpfs] = useState()
   const [traitsPropertyName, setTraitsPropertyName] = useState('traits')
@@ -57,7 +54,7 @@ export function TokenDisplay({ token }) {
         {JSON.stringify(tokenMetadata) !== '{}' ? (
           <>
             <Image src={imageUri} alt={tokenMetadata.name} />
-            <Link href={openSeaTokenAddress + token.tokenId}>
+            <Link href={openSeaTokenAddress + token}>
               <Heading as="h3" size="sm" mt="1em">
                 {tokenMetadata.name} <ExternalLinkIcon></ExternalLinkIcon>
               </Heading>
@@ -85,7 +82,7 @@ export function TokenDisplay({ token }) {
           <>
             <Box w="176px" h="176px"></Box>
             <Link href={processedTokenURI}>
-              <Badge colorScheme="red">Could not fetch: {token.name}</Badge>
+              <Badge colorScheme="red">Could not fetch: {token}</Badge>
             </Link>
           </>
         )}
