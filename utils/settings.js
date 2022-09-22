@@ -1,3 +1,5 @@
+const siteTitle = 'NFT Battle'
+
 const detectedTraits = ['attack', 'defense', 'dexterity', 'hp']
 
 const detectedTokenIds = [
@@ -6,4 +8,4 @@ const detectedTokenIds = [
   '79705881713510680904848027910646010397701910681860485410475924029521386274848'
 ]
 
-export { detectedTokenIds, detectedTraits }
+export { siteTitle, detectedTraits, detectedTokenIds }

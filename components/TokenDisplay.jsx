@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNetwork } from 'wagmi'
 import { Badge, Box, Link, Image, Heading, Text } from '@chakra-ui/react'
-import { CheckIcon, NotAllowedIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { NotAllowedIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { useTokenURI } from '../hooks'
-import { detectedTraits } from '../utils/tokenIds'
+import { detectedTraits } from '../utils/settings'
 import {
   getContractAddress,
   openSeaTokenAddress
