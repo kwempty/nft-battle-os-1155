@@ -60,22 +60,28 @@ export function TokenDisplay({ token }) {
               </Heading>
             </Link>
             <Text mt="1em">Available properties:</Text>
-            {detectedTraits.map((traitname) => (
-              <>
+            {detectedTraits.map((traitname, index) => (
+              <Box key={index}>
                 {tokenMetadata[traitsPropertyName].filter(
                   (e) => e.trait_type.toLowerCase() == traitname
                 ).length > 0 ? (
-                  <Badge colorScheme="green" mr="4px">
-                    <CheckIcon></CheckIcon>
-                    {traitname}
-                  </Badge>
+                  <>
+                    <Badge colorScheme="green" mr="4px">
+                      {traitname}:{' '}
+                      {
+                        tokenMetadata[traitsPropertyName].filter(
+                          (e) => e.trait_type.toLowerCase() == traitname
+                        )[0].value
+                      }
+                    </Badge>
+                  </>
                 ) : (
                   <Badge colorScheme="red" mr="4px">
                     <NotAllowedIcon></NotAllowedIcon>
                     {traitname}
                   </Badge>
                 )}
-              </>
+              </Box>
             ))}
           </>
         ) : (
