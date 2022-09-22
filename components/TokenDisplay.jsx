@@ -3,12 +3,12 @@ import { useNetwork } from 'wagmi'
 import { Badge, Box, Link, Image, Heading, Text } from '@chakra-ui/react'
 import { CheckIcon, NotAllowedIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { useTokenURI } from '../hooks'
+import { detectedTraits } from '../utils/tokenIds'
 import {
   getContractAddress,
   openSeaTokenAddress
 } from '../utils/contractAddress'
 
-const detectedTraits = ['attack', 'defense', 'dexterity', 'hp']
 export function TokenDisplay({ token }) {
   const { chain } = useNetwork()
   const erc1155Contract = getContractAddress({
